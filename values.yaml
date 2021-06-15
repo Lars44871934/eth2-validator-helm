@@ -17,7 +17,7 @@ openethereum:
     enabled: true
     accessModes: [ "ReadWriteOnce" ]
     size: 256Gi
-    storageClassName: standard
+    storageClassName: longhorn-ssd
 
   replicaCount: 1
 
@@ -41,15 +41,15 @@ openethereum:
     name:
 
   podSecurityContext:
-    fsGroup: 1000
+    fsGroup: 500
 
   securityContext:
     capabilities:
       drop:
       - ALL
     readOnlyRootFilesystem: true
-    runAsUser: 1000
-    runAsGroup: 1000
+    runAsUser: 500
+    runAsGroup: 500
 
   service:
     enabled: true
@@ -116,7 +116,7 @@ beacon:
     enabled: true
     accessModes: [ "ReadWriteOnce" ]
     size: 128Gi
-    storageClassName: standard
+    storageClassName: longhorn-ssd
 
   replicaCount: 1
 
@@ -140,15 +140,15 @@ beacon:
     name:
 
   podSecurityContext:
-    fsGroup: 1000
+    fsGroup: 500
 
   securityContext:
     capabilities:
       drop:
       - ALL
     readOnlyRootFilesystem: true
-    runAsUser: 1000
-    runAsGroup: 1000
+    runAsUser: 500
+    runAsGroup: 500
 
   service:
     enabled: true
@@ -219,7 +219,7 @@ validator:
     enabled: true
     accessModes: [ "ReadWriteOnce" ]
     size: 32Gi
-    storageClassName: standard
+    storageClassName: longhorn-ssd
 
   image:
     repository: sigp/lighthouse
@@ -241,15 +241,15 @@ validator:
     name:
 
   podSecurityContext:
-    fsGroup: 1000
+    fsGroup: 500
 
   securityContext:
     capabilities:
       drop:
       - ALL
     readOnlyRootFilesystem: true
-    runAsUser: 1000
-    runAsGroup: 1000
+    runAsUser: 500
+    runAsGroup: 500
 
   service:
     enabled: true
