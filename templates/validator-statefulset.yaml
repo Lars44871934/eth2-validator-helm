@@ -44,16 +44,15 @@ spec:
           # ref: https://lighthouse-book.sigmaprime.io/validator-management.html?highlight=--secrets-dir#populating-the-validator_definitionsyml-file
           args:
           - |
-            while true; do sleep 15 ; echo "background"; done
-          #  set -e
-          #  cd /var/data/keystores/
-          #  echo "Importing keystores ..."
-          #  for name in *.json; do
-          #    echo "Importing ${name} ..."
-          #    mkdir /var/data/validators/imported/${name}
-          #    cp $name /var/data/validators/imported/${name}/voting-keystore.json
-          #    echo "Imported ${name}"
-          #  done
+            set -e
+            cd /var/data/keystores/
+            echo "Importing keystores ..."
+            for name in *.json; do
+              echo "Importing ${name} ..."
+              mkdir /var/data/validators/imported/${name}
+              cp $name /var/data/validators/imported/${name}/voting-keystore.json
+              echo "Imported ${name}"
+            done
           volumeMounts:
           - name: keystores
             mountPath: /var/data/keystores
@@ -65,9 +64,11 @@ spec:
             {{- toYaml .securityContext | nindent 12 }}
           image: "{{ .image.repository }}:{{ .image.tag }}"
           imagePullPolicy: {{ .image.pullPolicy }}
+          command: ["/bin/sh", "-c"]
           args:
-            {{- $args := concat .defaultArgs .extraArgs (list "--network" .network "--beacon-nodes" (.beaconNodes | default (printf "http://%s-beacon:5052" $root.Release.Name))) }}
-            {{- toYaml $args | nindent 12 }}
+            while true; do sleep 15 ; echo "background"; done
+            # {{- $args := concat .defaultArgs .extraArgs (list "--network" .network "--beacon-nodes" (.beaconNodes | default (printf "http://%s-beacon:5052" $root.Release.Name))) }}
+            # {{- toYaml $args | nindent 12 }}
           ports:
             - name: http
               containerPort: 5052
