@@ -64,12 +64,9 @@ spec:
             {{- toYaml .securityContext | nindent 12 }}
           image: "{{ .image.repository }}:{{ .image.tag }}"
           imagePullPolicy: {{ .image.pullPolicy }}
-          command: ["/bin/sh", "-c"]
           args:
-          - |
-            while true; do sleep 15 ; echo "background"; done 
-            # {{- $args := concat .defaultArgs .extraArgs (list "--network" .network "--beacon-nodes" (.beaconNodes | default (printf "http://%s-beacon:5052" $root.Release.Name))) }}
-            # {{- toYaml $args | nindent 12 }}
+            {{- $args := concat .defaultArgs .extraArgs (list "--network" .network "--beacon-nodes" (.beaconNodes | default (printf "http://%s-beacon:5052" $root.Release.Name))) }}
+            {{- toYaml $args | nindent 12 }}
           ports:
             - name: http
               containerPort: 5052

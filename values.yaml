@@ -9,7 +9,7 @@ openethereum:
     "--goerli",
     "--http",
     "--datadir",
-    "--/var/data/"
+    "/var/data/"
   ]
   extraArgs: []
 
