@@ -37,7 +37,7 @@ spec:
           image: "{{ .image.repository }}:{{ .image.tag }}"
           imagePullPolicy: {{ .image.pullPolicy }}
           args:
-            {{- $args := concat .defaultArgs .extraArgs (list "--chain" .network) }}
+            {{- $args := .defaultArgs }}
             {{- toYaml $args | nindent 12 }}
           ports:
             - name: jsonrpc
@@ -79,7 +79,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-  
+
   {{- if .persistent.enabled }}
   volumeClaimTemplates:
   - metadata:

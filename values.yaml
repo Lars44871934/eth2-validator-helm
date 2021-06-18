@@ -6,10 +6,10 @@ openethereum:
   enabled: true
 
   defaultArgs: [
-    "--jsonrpc-interface=all",
-    "--metrics",
-    "--metrics-interface=all",
-    "--base-path=/var/data/"
+    "--goerli",
+    "--http",
+    "--datadir",
+    "--/var/data/"
   ]
   extraArgs: []
 
@@ -17,13 +17,13 @@ openethereum:
     enabled: true
     accessModes: [ "ReadWriteOnce" ]
     size: 256Gi
-    storageClassName: longhorn-ssd
+    storageClassName: longhorn-sas
 
   replicaCount: 1
 
   image:
-    repository: openethereum/openethereum
-    tag: v3.1.1
+    repository: ethereum/client-go
+    tag: latest
     pullPolicy: IfNotPresent
 
   # The network to connect to
@@ -63,17 +63,15 @@ openethereum:
     # rule to allow 30303 port access
     enabled: true
 
-  resources: {}
+  resources:
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
     # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
+    limits:
+      memory: 1Gi
+    requests:
+      memory: 1Gi
 
   livenessProbe:
     httpGet:
@@ -116,13 +114,13 @@ beacon:
     enabled: true
     accessModes: [ "ReadWriteOnce" ]
     size: 128Gi
-    storageClassName: longhorn-ssd
+    storageClassName: longhorn-sas
 
   replicaCount: 1
 
   image:
     repository: sigp/lighthouse
-    tag: v1.1.3
+    tag: v1.4.0
     pullPolicy: IfNotPresent
 
   # The network to connect to
@@ -178,17 +176,15 @@ beacon:
     # rule to allow 9000 port access
     enabled: true
 
-  resources: {}
+  resources:
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
     # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
+    limits:
+      memory: 1Gi
+    requests:
+      memory: 1Gi
 
   nodeSelector: {}
 
@@ -219,7 +215,7 @@ validator:
     enabled: true
     accessModes: [ "ReadWriteOnce" ]
     size: 32Gi
-    storageClassName: longhorn-ssd
+    storageClassName: longhorn-sas
 
   image:
     repository: sigp/lighthouse
@@ -271,17 +267,15 @@ validator:
     failureThreshold: 5
     periodSeconds: 10
 
-  resources: {}
+  resources:
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
     # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
+    limits:
+      memory: 1Gi
+    requests:
+      memory: 1Gi
 
   nodeSelector: {}
 
