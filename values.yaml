@@ -8,6 +8,7 @@ openethereum:
   defaultArgs: [
     "--goerli",
     "--http",
+    "--http.addr=0.0.0.0",
     "--datadir",
     "/var/data/"
   ]
@@ -23,7 +24,7 @@ openethereum:
 
   image:
     repository: ethereum/client-go
-    tag: latest
+    tag: v1.9.24
     pullPolicy: IfNotPresent
 
   # The network to connect to
@@ -69,25 +70,25 @@ openethereum:
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
     # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
     limits:
-      memory: 1Gi
+      memory: 16Gi
     requests:
-      memory: 1Gi
+      memory: 16Gi
 
-  # livenessProbe:
-  #   httpGet:
-  #     path: /metrics
-  #     port: metrics
-  #   initialDelaySeconds: 30
-  #   failureThreshold: 5
-  #   periodSeconds: 10
+  livenessProbe:
+    httpGet:
+      path: /metrics
+      port: metrics
+    initialDelaySeconds: 30
+    failureThreshold: 5
+    periodSeconds: 10
 
-  # readinessProbe:
-  #   httpGet:
-  #     path: /metrics
-  #     port: metrics
-  #   initialDelaySeconds: 30
-  #   failureThreshold: 5
-  #   periodSeconds: 10
+  readinessProbe:
+    httpGet:
+      path: /metrics
+      port: metrics
+    initialDelaySeconds: 30
+    failureThreshold: 5
+    periodSeconds: 10
 
   nodeSelector: {}
 
@@ -182,9 +183,9 @@ beacon:
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
     # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
     limits:
-      memory: 1Gi
+      memory: 16Gi
     requests:
-      memory: 1Gi
+      memory: 16Gi
 
   nodeSelector: {}
 
@@ -273,9 +274,9 @@ validator:
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
     # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
     limits:
-      memory: 1Gi
+      memory: 16Gi
     requests:
-      memory: 1Gi
+      memory: 16Gi
 
   nodeSelector: {}
 

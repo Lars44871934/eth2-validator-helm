@@ -79,7 +79,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-  
+
   {{- if .persistent.enabled }}
   volumeClaimTemplates:
   - metadata:

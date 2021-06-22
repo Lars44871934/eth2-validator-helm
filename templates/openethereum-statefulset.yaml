@@ -44,7 +44,7 @@ spec:
               containerPort: 8545
               protocol: TCP
             - name: metrics
-              containerPort: 3000
+              containerPort: 8546
               protocol: TCP
             - name: p2p-tcp
               containerPort: 30303
@@ -58,10 +58,6 @@ spec:
               {{- if .hostPort.enabled }}
               hostPort: 30303
               {{- end }}
-          livenessProbe:
-            {{- toYaml .livenessProbe | nindent 12 }}
-          readinessProbe:
-            {{- toYaml .readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
